@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SolutionProgram\AdventOfCode.csproj" />
+    <data Include="..\SolutionProgram\data\">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </data>
   </ItemGroup>
 
 </Project>
