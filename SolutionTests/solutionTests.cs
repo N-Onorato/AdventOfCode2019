@@ -1,26 +1,41 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AdventOfCode.solutions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode.tests
 {
     [TestClass]
-    public class Solution_1_Tests
+    public static class Solution_1_Tests
     {
         [DataTestMethod]
         [DataRow(12, 2)]
         [DataRow(14, 2)]
         [DataRow(1969, 654)]
         [DataRow(100756, 33583)]
-        public void canCalculateFuelForModule(int val, int expected)
+        public static void canCalculateFuelForModule(int val, int expected)
         {
             var fuelNeeded = solution1.calcFuelForModule(val);
             Assert.AreEqual(fuelNeeded, expected);
         }
 
         [TestMethod]
-        public void canRetrieveInputData() {
-            int value = solution1.getInputData();
-            Assert.AreEqual(value, 50350);
+        public static void canRetrieveInputData() {
+            List<int> inputs = solution1.getInputDataAsList();
+            Assert.AreEqual(inputs[0], 50350);
+            Assert.AreEqual(inputs[1], 104487);
+            Assert.AreEqual(inputs[2], 101866);
+        }
+    }
+
+    [TestClass]
+    public static class Solution_2_Tests {
+
+        [TestMethod]
+        public static void canGenerateRecursiveFuel() {
+            var fuelValues = solution2.calcFuelValues(2);
+            var toArray = (from fuel in fuelValues select fuel).ToArray();
+            Assert.AreEqual(fuelValues, System.Array.Empty<int>());
         }
     }
 }
