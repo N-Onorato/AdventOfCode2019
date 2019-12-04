@@ -8,9 +8,10 @@ namespace AdventOfCode.solutions
 
     public static class solution1
     {
+        public const string dataPath = "B:\\OneDrive_Root\\OneDrive\\Documents\\Programming\\CSharp\\AdventOfCode\\SolutionProgram\\data\\day1input";
 
         public static string getAnswer() {
-            var inputs = getInputAsEnum("B:\\OneDrive_Root\\OneDrive\\Documents\\Programming\\CSharp\\AdventOfCode\\SolutionProgram\\data\\day1input");
+            var inputs = getInputAsEnum(dataPath);
             int sum = (from input in inputs select calcFuelForModule(int.Parse(input))).Sum();
             return sum.ToString();
         }
@@ -22,7 +23,7 @@ namespace AdventOfCode.solutions
         
         public static List<int> getInputDataAsList()
         {
-            IEnumerable<string> inputStrings = getInputAsEnum("B:\\OneDrive_Root\\OneDrive\\Documents\\Programming\\CSharp\\AdventOfCode\\SolutionProgram\\data\\day1input");
+            IEnumerable<string> inputStrings = getInputAsEnum(dataPath);
             return (from input in inputStrings select int.Parse(input)).ToList();
         }
 
