@@ -42,7 +42,7 @@ namespace AdventOfCode.tests
     }
 
     [TestClass]
-    public class Solution_2_Tests {
+    public class Solution_1p2_Tests {
 
         [TestMethod]
         public void canCalcZeroFuel() {
