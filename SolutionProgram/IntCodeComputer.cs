@@ -9,6 +9,8 @@ namespace AdventOfCode
         private readonly int[] initialIntCode;
         private int[] intCode;
 
+        private bool processed = false;
+
         public IntCodeComputer(string intCodeFilePath) {
             dataPath = intCodeFilePath;
             initialIntCode = getInputArray(dataPath);
@@ -28,6 +30,10 @@ namespace AdventOfCode
                 intCode = initialIntCode;
             else
                 getInputArray(dataPath);
+        }
+
+        public bool isProcessed() {
+            return processed;
         }
 
         public static int[] getInputArray(string path)
@@ -62,6 +68,7 @@ namespace AdventOfCode
                         processMultOpcode(opCode[1], opCode[2], opCode[3]);
                         break;
                     case 99:
+                        processed = true;
                         return;
                     default:
                         throw new System.Exception("Encountered unsupported opCode value.");
