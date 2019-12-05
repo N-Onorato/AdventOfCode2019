@@ -14,10 +14,11 @@ namespace AdventOfCode
         public IntCodeComputer(string intCodeFilePath) {
             dataPath = intCodeFilePath;
             initialIntCode = getInputArray(dataPath);
-            intCode = initialIntCode;
+            intCode = initialIntCode.ToArray();
         }
 
         public IntCodeComputer(int[] program) {
+            initialIntCode = program;
             intCode = program;
         }
 
@@ -26,10 +27,7 @@ namespace AdventOfCode
         }
 
         public void reset() {
-            if(dataPath == "")
-                intCode = initialIntCode;
-            else
-                getInputArray(dataPath);
+            intCode = initialIntCode.ToArray();
         }
 
         public bool isProcessed() {
@@ -71,7 +69,7 @@ namespace AdventOfCode
                         processed = true;
                         return;
                     default:
-                        throw new System.Exception("Encountered unsupported opCode value.");
+                        throw new System.Exception($"Encountered unsupported opCode value: {opCode[0]}");
                 }
             }
         }
