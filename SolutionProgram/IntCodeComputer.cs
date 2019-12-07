@@ -46,12 +46,24 @@ namespace AdventOfCode
             int opcodePos = (pos - 1) * 4;
             if(opcodePos >= 0 && opcodePos < intCode.Length) {
                 if(opcodePos < intCode.Length - 4)
-                    return intCode.AsSpan<int>(opcodePos, 4).ToArray();
+                    return getArraySubset(opcodePos, 4);
                 else
-                    return intCode.AsSpan<int>(opcodePos, intCode.Length - opcodePos).ToArray();
+                    return getArraySubset(opcodePos, intCode.Length - opcodePos);
             } else {
                 return System.Array.Empty<int>();
             }
+        }
+
+        private int[] getArraySubset(int pos, int len) {
+            int[] result = new int[len];
+            len += pos;
+            int index = 0;
+            while(pos < len) {
+                result[index] = intCode[pos];
+                pos++;
+                index++;
+            }
+            return result;
         }
 
         public void processIntCode()
