@@ -4,6 +4,7 @@ namespace AdventOfCode
         
         public GridPoint() {}
 
+        public int steps {get; set;}
         private int horizontalId;
         private int verticalId;
         private bool horizontalWire;

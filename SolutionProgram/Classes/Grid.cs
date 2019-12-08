@@ -32,7 +32,7 @@ namespace AdventOfCode
 
         private void buildWire(string[] commands, int wireHash)
         {
-           int xPos = 0, yPos = 0;
+           int xPos = 0, yPos = 0, steps = 1;
            foreach(string command in commands) {
                char direction = command[0];
                int distance = int.Parse(command.Substring(1, command.Length -1));
@@ -40,27 +40,31 @@ namespace AdventOfCode
                 switch(direction) {
                     case 'U':
                         for(int pos = yPos + 1; pos <= yPos + distance; pos++) {
-                            addVertical(xPos, pos, wireHash);
+                            addVertical(xPos, pos, wireHash, steps);
+                            steps++;
                         }
                         yPos += distance;
                         break;
                     case 'R':
                        for(int pos = xPos + 1; pos <= xPos + distance; pos++) {
-                            addHorizontal(pos, yPos, wireHash);
+                            addHorizontal(pos, yPos, wireHash, steps);
+                            steps++;
                         }
                         xPos += distance;
                         break;
                     case 'D':
                         for(int pos = yPos - 1; pos >= yPos - distance; pos--)
                         {
-                            addVertical(xPos, pos, wireHash);
+                            addVertical(xPos, pos, wireHash, steps);
+                            steps++;
                         }
                         yPos -= distance;
                         break;
                     case 'L':
                         for(int pos = xPos - 1; pos >= xPos - distance; pos--)
                         {
-                            addHorizontal(pos, yPos, wireHash);
+                            addHorizontal(pos, yPos, wireHash, steps);
+                            steps++;
                         }
                         xPos -= distance;
                         break;
@@ -68,31 +72,39 @@ namespace AdventOfCode
            }
         }
 
-        private void addVertical(int xPos, int yPos, int hash)
+        private void addVertical(int xPos, int yPos, int hash, int steps)
         {
             GridPoint point;
             if (wires.TryGetValue((xPos, yPos), out point))
             {
                 point.setVertical(true, hash);
+                if(point.isIntersection) {
+                    point.steps += steps;
+                }
             }
             else
             {
                 point = new GridPoint();
+                point.steps += steps;
                 point.setVertical(true, hash);
                 wires.Add((xPos, yPos), point);
             }
         }
 
-        private void addHorizontal(int xPos, int yPos, int hash)
+        private void addHorizontal(int xPos, int yPos, int hash, int steps)
         {
             GridPoint point;
             if (wires.TryGetValue((xPos, yPos), out point))
             {
                 point.setHorizontal(true, hash);
+                if(point.isIntersection) {
+                    point.steps += steps;
+                }
             }
             else
             {
                 point = new GridPoint();
+                point.steps += steps;
                 point.setHorizontal(true, hash);
                 wires.Add((xPos, yPos), point);
             }
@@ -106,6 +118,10 @@ namespace AdventOfCode
 
         public int getDistance() {
             return (from wire in wires where wire.Value.isIntersection select Math.Abs(wire.Key.Item1) + Math.Abs(wire.Key.Item2)).Min();
+        }
+
+        public int getMinSteps() {
+            return (from wire in wires where wire.Value.isIntersection select wire.Value.steps).Min();
         }
     }
 
