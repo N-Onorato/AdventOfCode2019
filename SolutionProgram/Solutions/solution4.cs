@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -10,10 +11,10 @@ namespace AdventOfCode.solutions {
     public static class solution4 {
         public static string getAnswer() {
             int count = 0;
-            for(int i = 136818; i <= 685979; i++) {
-                if(isValidNumber(i))
-                    count++;
-            }
+            System.Threading.Tasks.Parallel.For(136818, 685980, (n) => {
+                    if(isValidNumber(n))
+                        System.Threading.Interlocked.Increment(ref count);
+            });
             return count.ToString();
         }
 
