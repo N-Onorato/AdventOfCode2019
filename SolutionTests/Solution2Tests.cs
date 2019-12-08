@@ -1,9 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AdventOfCode;
-using System.Collections.Generic;
 
 
-namespace AdventOfCode.tests {
+namespace AdventOfCode.tests
+{
 
     [TestClass]
     public class solution2Tests {
